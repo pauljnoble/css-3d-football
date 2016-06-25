@@ -15,7 +15,7 @@ module.exports = {
         loaders: [
             { 
                 test: /\.styl$/, 
-                loader: ExtractTextPlugin.extract("style-loader", "css-loader!stylus-loader", { publicPath: '/foo'})
+                loader: ExtractTextPlugin.extract("style-loader", "css-loader!stylus-loader")
             }
         ]
     },
