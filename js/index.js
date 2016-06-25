@@ -2,7 +2,7 @@ require('../stylus/_all.styl');
 var $ = require('jquery');
 require('velocity-animate');
 
-var ASSET_URL = '/assets/img/';
+var ASSET_URL = '/build/assets/img/';
 
 var $stage = null;
 var $world = null;

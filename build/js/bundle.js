@@ -55,7 +55,7 @@
 	var $ = __webpack_require__(6);
 	__webpack_require__(7);
 
-	var ASSET_URL = '/assets/img/';
+	var ASSET_URL = '/build/assets/img/';
 
 	var $stage = null;
 	var $world = null;
