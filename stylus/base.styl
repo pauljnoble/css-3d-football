@@ -1,0 +1,584 @@
+// Codepen asset mixin
+asset(filename='blank.gif')
+    background-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/215059/' filename)
+
+*
+    box-sizing: border-box
+
+html, body
+    width: 100%
+    height: 100%
+    font-size: 62.5%
+    padding: 0
+    margin: 0
+
+.velocity-animating
+    transition: none !important
+
+body
+    background-image: -webkit-radial-gradient(ellipse, $body-bg-color 0, $body-bg-color-2 100%)
+    font-family: 'Open Sans', helvetica, arial, sans-serif
+
+main
+    opacity: 0
+
+.static
+    position: absolute
+    top: 0
+    left: 0
+    width: 100%
+    color: #fff
+    text-align: center
+    padding:    0
+    z-index: 3
+
+    h1
+        margin: 50px 0 15px
+        font-size: 50px
+        font-weight: 800
+        text-transform: uppercase
+        line-height: 42px
+        letter-spacing: -3px
+        font-family: montserrat
+
+    p
+        font-weight: 300
+        opacity: 0.4
+        margin: 0 0 20px
+        font-size: 16px
+        color: lighten($body-bg-color, 50%)
+
+.loading
+    position: absolute
+    top: 0
+    right: 0
+    bottom: 0
+    left: 0
+    margin: auto
+    height: 16px
+    line-height: 16px
+    color: #fff
+    font-family: 'montserrat'
+    font-size: 24px
+    font-weight: 900
+    letter-spacing: -1px
+    text-align: center
+    opacity: 0
+
+.team-list
+    position: absolute
+    left: 40px
+    top: 100px
+    list-style: none
+    display: none
+
+    li:first-child
+        color: #fff
+        font-weight: bold
+
+    li
+        font-size: 1.4rem
+        margin: 0 0 10px
+        color: lighten($body-bg-color, 50%)
+
+.stage
+    position: absolute
+    width: 100%
+    height: 100%
+    top: 0
+    perspective-origin: 50% -200px
+    perspective: $stage-perspective
+    z-index: 1
+    backface-visibility: hidden
+
+.world
+    position: absolute
+    top: 130px
+    left: 50%
+    margin-left: -($field-x / 2)
+    width: $field-x
+    height: $field-y
+    transform: translateZ(-($field-y / 4))
+    transform-style: preserve-3d
+    z-index: 1
+    backface-visibility: hidden
+
+    &.flipped
+        transform: translateZ(-($field-y / 4)) rotateY(180deg)
+
+    &.switched
+        transform: translateZ(250px) rotateY(30deg) translateX(60px) translateY(-200px)
+
+.switch-btn
+    display: inline-block
+    padding: 0 15px
+    border-bottom: 0
+    text-align: center
+    color: lighten($body-bg-color, 50%)
+    text-decoration: none
+    opacity: 0.5
+    font-size: 12px
+    transition: all 0.15s
+    
+    span
+        padding: 7px 0
+    
+    &.disabled
+        
+        color: #fff
+        opacity: 1
+        pointer-events: none
+        
+        span
+            border-bottom: solid 2px lighten($body-bg-color, 50%)
+
+    &:hover
+        color: #fff
+        opacity: 1
+
+    &:first-child
+        border-right: none
+
+.team
+    position: absolute
+    top: 0
+    left: 0
+    width: 100%
+    height: 100%
+    transform-style: preserve-3d
+
+.terrain
+    position: absolute
+    top: 0
+    left: 0
+    width: 100%
+    height: 100%
+    transform-style: inherit
+
+.field
+    position: absolute
+    top: 0
+    left: 0
+    width: 100%
+    height: 100%
+    background-color: $field-bg-color
+    z-index: 2
+    transform: rotateX($field-rot) translateZ(0)
+    transform-origin: 50% 50%
+    box-sizing: content-box
+    backface-visibility: hidden
+
+.field--alt
+    display: block
+    width: 80%
+    left: 10%
+    transform: rotateX($field-rot) translateZ(-10px)
+    background: rgba(#000, 0.8)
+    opacity: 0.3
+    box-shadow: 0 0 40px 30px rgba(#000, 0.8)
+
+.field__texture
+    width: 100%
+    height: 100%
+    position: absolute
+    z-index: 3
+
+    &.field__texture--gradient
+        background-image: linear-gradient(to top, rgba(0,0,0,0.2), transparent)
+        z-index: 4
+
+        .flipped &
+            opacity: 0
+
+    &.field__texture--gradient-b
+        opacity: 0
+        background-image: linear-gradient(to bottom, rgba(0,0,0,0.2), transparent)
+        z-index: 4
+
+        .flipped &
+            opacity: 1
+
+    .texture &
+        &.field__texture--grass
+            asset('grass2.png')
+            background-repeat: repeat
+            background-size: 75px 75px
+            background-position: -20px -20px
+
+
+.field__side
+    position: absolute
+    top: ($field-y / 2)
+    left: 0
+    width: 100%
+    height: $field-side-y
+    transform: rotateX($field-rot * 2) translateZ(-($field-y / 2))
+    transform-origin: 50% 50%
+    background-color: $field-side-color
+    z-index: 9
+
+    .texture &
+        background-color: black
+
+        &:after
+            content: ""
+            top: 0
+            left: 0
+            bottom: 0
+            right: 0
+            position: absolute
+            opacity: 0.55
+            asset('mud.png')
+            background-repeat: repeat
+            background-size: 75px 75px
+            background-position: -20px -20px
+
+    &.field__side--left,
+    &.field__side--right
+        top: 0
+        left: -($field-side-y)
+        height: 100%
+        width: $field-side-y
+        transform-origin: 100% 50%
+        transform: rotateX($field-rot) rotateY(-90deg) translateZ(0)
+
+    &.field__side--right
+        left: auto
+        right: 0
+
+    &.field__side--back
+        transform: rotateX($field-rot * 2) translateZ(($field-y / 2))
+
+.field__line
+    position: absolute
+    width: 100%
+    height: $line-x
+    z-index: 4
+
+.field__line--goal
+    width: 16%
+    height: 6%
+    border: solid $line-x $line-color
+    border-bottom: none
+    left: 0
+    right: 0
+    margin: auto
+    bottom: $field-buffer
+
+.field__line--goal--far
+    top: $field-buffer
+    bottom: auto
+    border: solid $line-x $line-color
+    border-top: none
+
+.field__line--penalty-arc
+    width: 20%
+    height: 20%
+    overflow: hidden
+    bottom: ($field-buffer + 16%)
+    left: 0
+    right: 0
+    margin: auto
+
+    &:after
+        position: absolute
+        top: 75%
+        width: 100%
+        height: 100%
+        left: 0
+        content: ' '
+        display: block
+        border-radius: 50% 50% 0 0
+        border: solid $line-x $line-color
+        border-bottom: none
+        box-sizing: border-box
+
+.field__line--penalty-arc--far
+    bottom: auto
+    top: ($field-buffer + 16%)
+
+    &:after
+        bottom: 75%
+        top: auto
+        border: solid $line-x $line-color
+        border-top: none
+        border-radius: 0 0 50% 50%
+
+
+.field__line--penalty
+    width: 44%
+    height: 16%
+    border: solid $line-x $line-color
+    border-bottom: none
+    left: 0
+    right: 0
+    margin: auto
+    bottom: $field-buffer
+
+.field__line--penalty--far
+    top: $field-buffer
+    bottom: auto
+    border: solid $line-x $line-color
+    border-top: none
+
+.field__line--outline
+    width: (100% - ($field-buffer * 2))
+    height: (100% - ($field-buffer * 2))
+    top: $field-buffer
+    left: $field-buffer
+    border: solid $line-x $line-color
+
+.field__line--mid
+    top: 50%
+    width: (100% - ($field-buffer * 2))
+    left: $field-buffer
+    background-color: $line-color
+
+.field__line--circle
+    width: 20%
+    height: 20%
+    top:    0
+    left: 0
+    right: 0
+    bottom: 0
+    margin: auto
+    border: solid $line-x $line-color
+    border-radius: 50%
+
+.debug-btn
+    position: absolute
+    right: 40px
+    top: 40px
+    border: solid 1px #fff
+    border-radius: 10px
+    height: 20px
+    padding: 0 10px
+    color: #fff
+    text-decoration: none
+    line-height: 20px
+
+    &:hover
+        opacity: 1
+        background-color: rgba(255, 255, 255, 0.1)
+
+    &.debug-btn--load
+        top: 80px
+
+.player
+    position: absolute
+    height: $player-x + 23px
+    width: $player-x
+    padding-bottom: 23px
+    z-index: 9
+    left: 50%
+    margin-left: -($player-x / 2)
+    bottom: 50%
+    transform-style: preserve-3d
+    backface-visibility: hidden
+    transition: all 0.2s
+    cursor: pointer
+
+    .player__placeholder
+        position: absolute
+        opacity: 0
+        transform: rotateX(90deg)
+        height: 30px
+        width: 30px
+        bottom: -10px
+        left: 0
+        right: 0
+        margin: auto
+        border-radius: 50%
+        background-color: rgba(0, 0, 0, 0.2)
+        z-index: 1
+
+    &.active
+        .player__placeholder
+            opacity: 1
+
+    .player__card
+        position: absolute
+        bottom: 26px
+        left: (($player-x / 2) - ($card-x / 2))
+        height: $card-y
+        background-color: $colors-card-bg1
+        opacity: 0
+        width: $card-x
+        padding: 0
+        font-size: 18px
+        color: #333
+        border-radius: 4px
+        z-index: 2
+        //overflow: hidden
+
+        &:after
+            position: absolute
+            display: block
+            content: ''
+            height: 1px
+            width: 1px
+            border: solid 10px transparent
+            border-top: solid 10px $colors-card-bg2
+            bottom: -21px
+            left: 0
+            right: 0
+            margin: auto
+            top: auto
+            z-index: 3
+
+        i
+            position: absolute
+            top: 0px
+            right: 0px
+            padding: 10px 15px
+            font-size: 24px
+            line-height: 20px
+            color: white
+            opacity: 0.3
+            cursor: pointer
+            transition: all 0.15s
+
+            &:hover
+                opacity: 0.6
+
+        h3
+            text-align: center
+            font-weight: normal
+            text-transform: uppercase
+            font-family: montserrat
+            font-size: 19px
+            line-height: 27px
+            color: $colors-text-def
+            color: white
+            padding: 15px 30px 40px
+            margin: 0 0 30px
+            background-color: #eee
+            border-radius: 4px 4px 0 0
+            background-color: desaturate(darken($body-bg-color, 45%), 10%)
+
+            span:first-child
+                display: inline-block
+                height: 27px
+                width: 27px
+                border-radius: 50%
+                border: solid 1px #fff
+                line-height: 27px
+                opacity: 0.4
+                font-size: 18px
+
+            span:last-child
+                font-size: 14px
+                opacity: 0.4
+        p
+            color: $colors-text-med
+            font-syle: italic
+            text-align: center
+
+        .player__card__list
+            padding: 10px 0
+            font-size: 14px
+            color: $colors-text-med
+            overflow: auto
+            text-align: center
+
+            li
+                display: inline-block
+                white-space: nowrap
+                text-overflow: ellipsis
+                text-align: center
+                font-size: 15px
+                padding-left: 20px
+                color: $colors-text-def
+                //border-left: solid 1px #ddd
+
+                span
+                    font-size: 12px
+                    text-transform: uppercase
+                    color: $colors-text-lt
+
+                &:first-child
+                    padding-left: 0
+                    border-left: none
+
+        .player__card__list--last
+            position: absolute
+            width: 100%
+            bottom: 0
+            background-color: $colors-card-bg2
+            margin: 0
+            padding: 0
+            border-top: solid 1px #ddd
+            border-radius: 0 0 6px 6px
+            overflow: hidden
+
+            li
+                width: 50%
+                padding: 10px 0 20px 0
+                color: $colors-card-txt
+                font-size: 28px
+                line-height: 22px
+
+                &:last-child
+                    border-left: solid 1px #ddd
+
+    *
+        pointer-events: none
+
+    .player__img
+        position: absolute
+        top: 0
+        left: 0
+        width: $player-x
+        height: $player-x
+        z-index: 4
+        overflow: hidden
+        border-radius: ($player-x / 2)
+        background-color: #000
+        border: solid 1px #fff
+        backface-visibility: hidden
+        transition: all 0.2s
+
+
+        img
+            width: 100%
+            transition: all 0.2s
+            display: block
+
+    .player__label
+        position: absolute
+        height: 20px
+        display: inline-block
+        width: auto
+        overflow: visible
+        white-space: nowrap
+        left: -100%
+        right: -100%
+        margin: auto
+        padding: 0 10px
+        line-height: 20px
+        text-align: center
+        border-radius: 10px
+        bottom: 0
+        opacity: 0
+        text-transform: upppercase
+        transition: opacity 0.2s
+        z-index: 2
+        pointer-events: none
+
+        span
+            background-color: rgba(16, 20, 30, 0.9)
+            color: white
+            font-size: 11px
+            padding: 3px 10px 2px 10px
+            border-radius: 10px
+            text-transform: upppercase
+
+
+    &:hover
+        .player__img
+            opacity: 1
+        .player__label
+            opacity: 1
+
+    .texture &
+        background-size: 100% auto
