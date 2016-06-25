@@ -422,7 +422,7 @@ var assignVariables = function() {
 
 var init = function() {
 
-    $.getJSON('/assets/data.json', function(_data) {
+    $.getJSON('/css-3d-football/build/assets/data.json', function(_data) {
         data = _data;
 
         assignVariables();
